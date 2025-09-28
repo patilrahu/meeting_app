@@ -1,16 +1,30 @@
-# meeting_app
+MeetMate App
 
-A new Flutter project.
+cross-platform Flutter app for video meetings with features like camera, microphone
 
-## Getting Started
+Features -
+Join video meetings.
+Toggle camera and microphone.
+Handle multiple participants.
+Offline support for cached user data.
 
-This project is a starting point for a Flutter application.
+Technical Requirements -
+Flutter (latest stable version)
+Agora SDK (for video)
+Hive (for local caching)
+Android & iOS devices supported.
 
-A few resources to get you started if this is your first Flutter project:
+SetUp -
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1.Clone the repository
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2.Install dependencies
+flutter pub get
+
+3.Configure Environment Variables
+Create a .env file at the root:
+API_KEY=reqres-free-v1
+AGORA_APP_ID=553aac0dbb694754b7403e2d8535cdb6
+AGORA_APP_TOKEN=007eJxTYCh6HKfBFicwx2iaiuTBH0GtN9anbTIM1mTO2TTT7fajKZcUGExNjRMTkw1SkpLMLE3MTU2SzE0MjFONUixMjU2TU5LMWM/cyGgIZGT4VBPPyMgAgSA+O0NJanGJoZExAwMAZ0Af0A==
+
+4.flutter run

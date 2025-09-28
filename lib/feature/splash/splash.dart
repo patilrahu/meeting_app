@@ -4,7 +4,9 @@ import 'package:meeting_app/core/constant/color_constant.dart';
 import 'package:meeting_app/core/constant/image_constant.dart';
 import 'package:meeting_app/core/constant/string_constant.dart';
 import 'package:meeting_app/core/helper/navigation_helper.dart';
+import 'package:meeting_app/core/helper/shared_preference_helper.dart';
 import 'package:meeting_app/feature/auth/presentation/pages/login.dart';
+import 'package:meeting_app/feature/meeting/presentation/meeting.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -21,8 +23,16 @@ class _SplashState extends State<Splash> {
   }
 
   void _navigateToScreen() async {
+    var isLogin = await SharedPreferenceHelper.getValue(
+      SharedPreferenceHelper.isLogin,
+      bool,
+    );
     await Future.delayed(Duration(seconds: 2));
-    NavigationHelper.pushRemoveUntil(context, Login());
+    if (isLogin != null && isLogin) {
+      NavigationHelper.pushRemoveUntil(context, Meeting());
+    } else {
+      NavigationHelper.pushRemoveUntil(context, Login());
+    }
   }
 
   @override

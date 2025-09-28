@@ -8,6 +8,7 @@ class CommonTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
+  final void Function(String)? onChanged;
 
   const CommonTextField({
     super.key,
@@ -18,6 +19,7 @@ class CommonTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
+    this.onChanged,
   });
 
   @override
@@ -28,6 +30,7 @@ class CommonTextField extends StatelessWidget {
       obscureText: obscureText,
       cursorColor: Colors.black,
       validator: validator,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,
