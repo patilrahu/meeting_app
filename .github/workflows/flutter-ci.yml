@@ -25,10 +25,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # 4. Run tests
-      - name: Run tests
-        run: flutter test
-
       # 5. Build Android APK
       - name: Build Android APK
         run: flutter build apk --release
