@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meeting_app/core/constant/color_constant.dart';
 import 'package:meeting_app/core/constant/string_constant.dart';
+import 'package:meeting_app/core/helper/internet_helper.dart';
 import 'package:meeting_app/core/helper/navigation_helper.dart';
 import 'package:meeting_app/core/helper/permission_helper.dart';
 import 'package:meeting_app/core/helper/toast_helper.dart';
@@ -46,6 +47,9 @@ class _MeetingState extends State<Meeting> with WidgetsBindingObserver {
     _engine = createAgoraRtcEngine();
     _engine = await MeetingHelper.joinMeeting(
       engine: _engine!,
+      onUserError: (error) {
+        ToastHelper.error(context, error);
+      },
       onJoined: () {
         setState(() {
           _joined = true;
@@ -145,7 +149,13 @@ class _MeetingState extends State<Meeting> with WidgetsBindingObserver {
 
                 child: Center(
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      var checkInternet =
+                          await ConnectivityHelper.hasInternet();
+                      if (!checkInternet) {
+                        ToastHelper.error(context, '❌ No Internet connection');
+                        return;
+                      }
                       checkPermission();
                     },
                     child: Container(

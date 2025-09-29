@@ -12,6 +12,7 @@ class MeetingHelper {
     required void Function() onJoined,
     required void Function(int uid) onUserJoined,
     required void Function(int uid) onUserLeft,
+    required void Function(String error) onUserError,
   }) async {
     await engine.initialize(
       RtcEngineContext(
@@ -23,6 +24,7 @@ class MeetingHelper {
       RtcEngineEventHandler(
         onError: (err, msg) {
           log("message $err  $msg");
+          onUserError(msg);
         },
         onJoinChannelSuccess: (connection, elapsed) {
           onJoined();

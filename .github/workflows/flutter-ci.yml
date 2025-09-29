@@ -1,0 +1,47 @@
+name: Flutter CI/CD
+
+# Run on every push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest # macOS runner is required for iOS builds
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.0" # your Flutter version
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Run tests
+      - name: Run tests
+        run: flutter test
+
+      # 5. Build Android APK
+      - name: Build Android APK
+        run: flutter build apk --release
+
+      # 6. Build iOS (without codesigning)
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+
+      # 7. Upload build artifacts (APK and iOS app folder)
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-builds
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/ios/iphoneos
